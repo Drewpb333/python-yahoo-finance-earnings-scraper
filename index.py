@@ -49,3 +49,27 @@ def create_weekdates_2017_list():
             week.append(day_date)
         weekdates_of_2017.append(week)
     return weekdates_of_2017   
+
+wb = create_workbook()
+sheet1 = create_worksheet()
+create_heading()
+
+weekdates_of_2017 = create_weekdates_2017_list()
+
+# for preventing overwrite of existing data
+starting_row_xl_index = 0
+
+for week in weekdates_of_2017:
+    monday_date = week[0]
+    friday_date = week[4]
+    for i in range(5):
+        table = get_earnings_table(monday_date, friday_date, week[i])
+        try:
+            write_to_sheet(table, week[i], starting_row_xl_index)
+        except:
+            print('Error Occured for week of {} - {}'.format(monday_date, friday_date))
+            break
+            # save_workbook('./2017Earnings.xls')
+        starting_row_xl_index += len(table.find_all("tr"))
+
+save_workbook('./2017Earnings.xls')
