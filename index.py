@@ -35,10 +35,13 @@ def write_to_sheet(table, earnings_date, starting_row_xl_index):
         for j in range(len(columns)):
             sheet1.write(starting_row_xl_index + i, j + 1, columns[j].text)
 
+# Yahoo Earnings currently only provides earnings for a four year period from 3 yars ago to 1 year in the future
 def create_weekdates_list():
     weekdates_of_year = []
-    first_monday_date = datetime.date(2017, 1, 8)
-    for i in range(51):
+    first_monday_date = datetime.date(2017, 1, 1)
+    # gets number of weeks from beginning of 3 years ago to one year from today's date
+    number_of_weeks = round((datetime.date.today() + datetime.timedelta(365) - jan).days / 7)
+    for i in range(number_of_weeks):
         week = []
         for j in range(5):
             day_date = first_monday_date + datetime.timedelta((7 * i) + j)
@@ -67,4 +70,4 @@ for week in weekdates_of_year:
             break
         starting_row_xl_index += len(table.find_all("tr"))
 
-save_workbook('./2017Earnings.xls')
+save_workbook('./yahoo-finance-arnings.xls')
