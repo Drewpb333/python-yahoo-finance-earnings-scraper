@@ -35,7 +35,7 @@ def write_to_sheet(table, earnings_date, starting_row_xl_index):
         for j in range(len(columns)):
             sheet1.write(starting_row_xl_index + i, j + 1, columns[j].text)            
 
-# Yahoo Earnings currently only provides earnings for a four year period from 3 yars ago to 1 year in the future
+# Yahoo Earnings currently only provides earnings for a four year period from 3 years ago to 1 year in the future
 def create_weekdates_list():
     weekdates_of_years = []
     first_monday_date = datetime.date(2017, 1, 2)
